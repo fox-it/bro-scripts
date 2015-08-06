@@ -8,6 +8,7 @@
 ##
 ## https://github.com/fox-it/bro-scripts
 ## updated by - Brian Kellogg 8/5/2015
+##  - raising a NOTICE added
 
 export {
     redef enum Notice::Type += { Metasploit::Meterpreter };

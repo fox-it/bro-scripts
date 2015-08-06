@@ -7,8 +7,11 @@
 ## Security Research Team
 ##
 ## https://github.com/fox-it/bro-scripts
+## updated by - Brian Kellogg 8/5/2015
 
 export {
+    redef enum Notice::Type += { DRC::Meterpreter };
+
     redef record connection += {
         meterpreter_payload_size: count &optional;
     };
@@ -25,8 +28,7 @@ event tcp_packet(c: connection, is_orig: bool, flags: string,
         {
         if (c$meterpreter_payload_size == ack-5)
             {
-            print( fmt("%DT: Possible Meterpreter Payload transfered! %s:%s -> %s:%s",
-               c$start_time, c$id$resp_h, c$id$resp_p, c$id$orig_h, c$id$orig_p));
+            NOTICE([$note=DRC::Meterpreter, $msg="Possible Meterpreter Payload transfered!", $conn=c]);
             }
         }
 }

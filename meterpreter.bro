@@ -9,6 +9,10 @@
 ## https://github.com/fox-it/bro-scripts
 
 export {
+    redef enum Notice::Type += {
+        Metasploit::Meterpreter,
+    };
+
     redef record connection += {
         meterpreter_payload_size: count &optional;
     };
@@ -25,8 +29,9 @@ event tcp_packet(c: connection, is_orig: bool, flags: string,
         {
         if (c$meterpreter_payload_size == ack-5)
             {
-            print( fmt("%DT: Possible Meterpreter Payload transfered! %s:%s -> %s:%s",
-               c$start_time, c$id$resp_h, c$id$resp_p, c$id$orig_h, c$id$orig_p));
+            #print( fmt("%DT: Possible Meterpreter Payload transfered! %s:%s -> %s:%s",
+            #   c$start_time, c$id$resp_h, c$id$resp_p, c$id$orig_h, c$id$orig_p));
+            NOTICE([$note=Metasploit::Meterpreter, $conn=c, $msg=fmt("Possible Meterpreter Payload transfered!")]);
             }
         }
 }

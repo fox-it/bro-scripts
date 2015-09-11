@@ -1,12 +1,14 @@
-## meterpreter.bro
-##
-## Bro-IDS policy to detect Metasploit's meterpreter payload transfer
-## Note that it does not detect payload transfers over SSL
-##
-## Fox-IT
-## Security Research Team
-##
-## https://github.com/fox-it/bro-scripts
+##! meterpreter.bro
+##!
+##! Bro-IDS policy to detect Metasploit's meterpreter payload transfer
+##! Note that it does not detect payload transfers over SSL
+##!
+##! Fox-IT
+##! Security Research Team
+##!
+##! https://github.com/fox-it/bro-scripts
+
+@load base/frameworks/notice
 
 export {
     redef enum Notice::Type += {
